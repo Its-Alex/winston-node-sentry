@@ -22,7 +22,7 @@ const logger = winston.createLogger({
   format: winston.format.json(),
   defaultMeta: { service: 'user-service' },
   transports: [
-    new SentryTransport(opts),
+    new SentryTransport(opts)
   ]
 })
 ```
