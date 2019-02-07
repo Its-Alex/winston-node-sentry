@@ -1,11 +1,12 @@
 {
-  "name": "winston-sentry",
+  "name": "winston-node-sentry",
   "version": "1.0.0",
   "description": "Sentry transport for winston 3.0.0+",
-  "main": "srcs/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.js",
   "scripts": {
-    "build": "tsc",
-    "build:debug": "tsc --sourceMap",
+    "build": "tsc --declaration",
+    "build:debug": "tsc --sourceMap --declaration",
     "watch": "nodemon --config nodemon.json",
     "test": "mocha -r ts-node/register __tests__/**/*.ts",
     "lint": "tslint -c tslint.json 'srcs/**/*.ts' '__tests__/**/*.ts'"
