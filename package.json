@@ -1,0 +1,48 @@
+{
+  "name": "winston-sentry",
+  "version": "1.0.0",
+  "description": "Sentry transport for winston 3.0.0+",
+  "main": "srcs/index.js",
+  "scripts": {
+    "build": "tsc",
+    "build:debug": "tsc --sourceMap",
+    "watch": "nodemon --config nodemon.json",
+    "test": "mocha -r ts-node/register __tests__/**/*.ts",
+    "lint": "tslint -c tslint.json 'srcs/**/*.ts' '__tests__/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Its-Alex/winston-sentry.git"
+  },
+  "keywords": [
+    "sentry",
+    "winston",
+    "transport",
+    "typescript",
+    "standard"
+  ],
+  "author": "me@itsalex.fr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Its-Alex/winston-sentry/issues"
+  },
+  "homepage": "https://github.com/Its-Alex/winston-sentry#readme",
+  "devDependencies": {
+    "@sentry/types": "^4.5.3",
+    "@types/lodash": "^4.14.120",
+    "@types/node": "^10.12.21",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.9",
+    "standard": "^12.0.1",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.3.1"
+  },
+  "dependencies": {
+    "@sentry/node": "^4.5.3",
+    "lodash": "^4.17.11",
+    "winston": "^3.2.1"
+  }
+}
