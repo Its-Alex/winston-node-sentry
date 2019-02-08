@@ -5,6 +5,7 @@ sentry.
 
 ## How to use
 
+## Example
 
 ```javascript
 import Winston from 'winston'
@@ -27,15 +28,48 @@ const logger = winston.createLogger({
 })
 ```
 
-SentryTransport take an object at `sentry` entry that is the object passed to
-[`Sentry.init`](https://docs.sentry.io/error-reporting/quickstart/?platform=node#configure-the-sdk)
-function see the docs to change options
-
 Some default behavor is set feel free to see [in code](srcs/index.ts#L14)
 
-# Development
+### Options
 
-## Start
+You can pass some options to SentryTransport
+
+```javascript
+{
+    level: 'info',
+    init: true,
+    sentry: NodeSentryModule,
+    sentryOpts: {},
+    sentryScope: (scope) => {}
+}
+```
+
+#### level
+
+Equivalent to winston level sentry will log error if level is same or below
+
+#### init
+
+This options is to set if winston-node-sentry must init `@node/sentry` module,
+or if user want to do it.
+
+#### sentry
+
+Is an `@node/sentry` object that can be used internally, if not passed
+winston-node-sentry will create his own
+
+#### sentryOpts
+
+Options passed to `@node/sentry` see [docs](https://docs.sentry.io/error-reporting/quickstart/?platform=node#configure-the-sdk) to get some more infos
+
+#### sentryScope
+
+Default custom scope function that can be set by winston-node-sentry when it
+init `@node/sentry`
+
+## Development
+
+### Start
 
 First of all you must install package
 
@@ -74,10 +108,6 @@ any pull respect lint you can check it
 $ npm run lint
 ```
 
-# License
+## License
 
 [MIT](https://en.wikipedia.org/wiki/MIT_License)
-
-# Maintainer
-
-Alexandre M <me@itsalex.fr>

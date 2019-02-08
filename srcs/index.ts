@@ -4,16 +4,21 @@ import * as Sentry from '@sentry/node'
 
 interface WinstonSentryOptions {
   level?: string
-  sentry: Sentry.NodeOptions
+  init?: boolean
+  sentry?: any
+  sentryOpts: Sentry.NodeOptions
   sentryScope? (scope: Sentry.Scope): void
 }
 
-class SentryTransport extends Transport {
+export class SentryTransport extends Transport {
+  Sentry: any
+
   constructor (opts: WinstonSentryOptions) {
     super(opts)
     opts = _.defaultsDeep(opts, {
       level: 'error',
-      sentry: {
+      init: true,
+      sentryOpts: {
         attachStacktrace: true,
         sendDefaultPii: true,
         integrations: [
@@ -26,7 +31,11 @@ class SentryTransport extends Transport {
     this.level = opts.level
     if (_.isFunction(opts.sentryScope)) Sentry.configureScope(opts.sentryScope)
 
-    Sentry.init(opts.sentry)
+    // Define internal sentry to use
+    this.Sentry = Sentry
+    if (opts.sentry) this.Sentry = opts.sentry
+
+    if (opts.init === true) this.Sentry.init(opts.sentryOpts)
   }
 
   log (info: any, callback: Function) {
@@ -36,19 +45,17 @@ class SentryTransport extends Transport {
 
     if (self.levels[info.level] <= self.levels[this.level!]) {
       if (_.isError(info)) {
-        Sentry.withScope(scope => {
+        this.Sentry.withScope((scope: Sentry.Scope) => {
           scope.setExtra('stack', info.stack)
           scope.setExtra('message', info.message)
 
-          Sentry.captureException(info)
+          this.Sentry.captureException(info)
         })
       } else {
-        Sentry.captureMessage(info)
+        this.Sentry.captureMessage(info)
       }
     }
 
     callback()
   }
 }
-
-export { SentryTransport }
