@@ -40,21 +40,23 @@ export class SentryTransport extends Transport {
 
   log (info: any, callback: Function) {
     setImmediate(() => this.emit('logged', info))
+
     // Some attribute is not in type
     let self = this as any
-
-    if (self.levels[info.level] <= self.levels[this.level!]) {
-      if (isError(info)) {
-        this.Sentry.withScope((scope: Sentry.Scope) => {
-          scope.setExtra('stack', info.stack)
-          scope.setExtra('message', info.message)
-
-          this.Sentry.captureException(info)
-        })
-      } else {
-        this.Sentry.captureMessage(info)
-      }
+    if (!(self.levels[info.level] <= self.levels[this.level!])) {
+      return callback()
     }
+
+    if (!isError(info)) {
+      this.Sentry.captureMessage(info)
+      return callback()
+    }
+    this.Sentry.withScope((scope: Sentry.Scope) => {
+      scope.setExtra('stack', info.stack)
+      scope.setExtra('message', info.message)
+
+      this.Sentry.captureException(info)
+    })
 
     callback()
   }
