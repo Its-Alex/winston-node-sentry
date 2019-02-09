@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { isFunction, isError, defaultsDeep } from 'lodash'
 import Transport from 'winston-transport'
 import * as Sentry from '@sentry/node'
 
@@ -15,7 +15,7 @@ export class SentryTransport extends Transport {
 
   constructor (opts: WinstonSentryOptions) {
     super(opts)
-    opts = _.defaultsDeep(opts, {
+    opts = defaultsDeep(opts, {
       level: 'error',
       init: true,
       sentryOpts: {
@@ -29,7 +29,7 @@ export class SentryTransport extends Transport {
     })
 
     this.level = opts.level
-    if (_.isFunction(opts.sentryScope)) Sentry.configureScope(opts.sentryScope)
+    if (isFunction(opts.sentryScope)) Sentry.configureScope(opts.sentryScope)
 
     // Define internal sentry to use
     this.Sentry = Sentry
@@ -44,7 +44,7 @@ export class SentryTransport extends Transport {
     let self = this as any
 
     if (self.levels[info.level] <= self.levels[this.level!]) {
-      if (_.isError(info)) {
+      if (isError(info)) {
         this.Sentry.withScope((scope: Sentry.Scope) => {
           scope.setExtra('stack', info.stack)
           scope.setExtra('message', info.message)
