@@ -13,7 +13,7 @@ import { SentryTransport } from 'winston-node-sentry'
 
 let opts = {
     level: 'info',
-    sentry: {
+    sentryOpts: {
         dsn: 'YOUR-DSN'
     }
 }
