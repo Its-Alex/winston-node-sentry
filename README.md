@@ -36,6 +36,7 @@ You can pass some options to SentryTransport
 
 ```javascript
 {
+    debug: false,
     level: 'info',
     init: true,
     sentry: NodeSentryModule,
@@ -43,6 +44,10 @@ You can pass some options to SentryTransport
     sentryScope: (scope) => {}
 }
 ```
+
+#### debug
+
+Used to log each action of logger and error
 
 #### level
 
