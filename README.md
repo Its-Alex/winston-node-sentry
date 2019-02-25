@@ -8,7 +8,7 @@ sentry.
 ## Example
 
 ```javascript
-import Winston from 'winston'
+import winston from 'winston'
 import { SentryTransport } from 'winston-node-sentry'
 
 let opts = {
