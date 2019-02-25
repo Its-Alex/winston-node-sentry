@@ -1,5 +1,5 @@
 import { isFunction, isError, defaultsDeep } from 'lodash'
-import Transport from 'winston-transport'
+import * as Transport from 'winston-transport'
 import * as Sentry from '@sentry/node'
 
 interface WinstonSentryOptions {
@@ -11,9 +11,10 @@ interface WinstonSentryOptions {
   sentryScope? (scope: Sentry.Scope): void
 }
 
-export class SentryTransport extends Transport {
+export class SentryTransport extends Transport.default {
   Sentry: any
   debug: boolean
+  level: string
 
   constructor (opts: WinstonSentryOptions) {
     super(opts)
@@ -32,7 +33,7 @@ export class SentryTransport extends Transport {
     })
 
     this.debug = opts.debug!
-    this.level = opts.level
+    this.level = opts.level!
     if (isFunction(opts.sentryScope)) Sentry.configureScope(opts.sentryScope)
 
     // Define internal sentry to use
