@@ -1,6 +1,6 @@
 {
   "name": "winston-node-sentry",
-  "version": "1.1.6",
+  "version": "1.1.8",
   "description": "Sentry transport for winston 3.0.0+",
   "main": "dist/index.js",
   "types": "dist/index.d.js",
@@ -44,6 +44,6 @@
   "dependencies": {
     "@sentry/node": "^4.5.3",
     "lodash": "^4.17.11",
-    "winston": "^3.2.1"
+    "winston-transport": "^4.3.0"
   }
 }
