@@ -55,18 +55,29 @@ export class SentryTransport extends Transport.default {
     }
 
     try {
-      if (!isError(info)) {
+      let error: Error | undefined = undefined
+
+      if (isError(info)) error = info
+      else if (info.error && isError(info.error)) error = info.error
+
+      if (typeof error === 'undefined') {
         if (self.debug) console.log('Capture message: ', info)
         self.Sentry.captureMessage(info)
+
         return callback()
       }
+      
       self.Sentry.withScope((scope: Sentry.Scope) => {
-        if (self.debug) console.log('Capture exception: ', info)
+        if (self.debug) console.log('Capture exception: ', error)
 
-        if (info.stack) scope.setExtra('stack', info.stack)
-        if (info.message) scope.setExtra('message', info.message)
+        scope.setExtra('info', info)
 
-        self.Sentry.captureException(info)
+        if (error !== undefined) {
+          if (error.stack) scope.setExtra('stack', error.stack)
+          if (error.message) scope.setExtra('message', error.message)
+        }
+
+        self.Sentry.captureException(error)
       })
     } catch (error) {
       if (self.debug) console.log(error)
