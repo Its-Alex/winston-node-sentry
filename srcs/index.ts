@@ -27,6 +27,7 @@ export class SentryTransport extends Transport.default {
         attachStacktrace: true,
         sendDefaultPii: true,
         integrations: [
+          new Sentry.Integrations.Modules(),
           new Integrations.Transaction()
         ]
       }
