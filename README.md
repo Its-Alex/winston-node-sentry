@@ -113,7 +113,7 @@ $ ./sentry/scripts/up.sh
 Get sentry DSN
 
 ```
-$ ./sentry/extract_dsn.py
+$ ./sentry/display-sentry-dsn.sh
 ```
 
 Copy DSN inside [test file](/__tests__/base.ts#L12)
