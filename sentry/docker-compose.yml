@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+  sentry:
+    image: sentry:9.1.1
+    restart: unless-stopped
+    ports:
+      - 8028:9000
+    volumes:
+      - ./sentry-config.yml:/etc/sentry/config.yml
+    env_file: env
+    environment:
+      - SENTRY_REDIS_HOST=redis
+      - SENTRY_POSTGRES_HOST=postgres
+      - SENTRY_DB_USER=sentry
+      - SENTRY_DB_PASSWORD=sentry
+      - SENTRY_DB_NAME=sentry
+
+  cron:
+    image: sentry:9.1.1
+    restart: unless-stopped
+    env_file: env
+    environment:
+      - SENTRY_REDIS_HOST=redis
+      - SENTRY_POSTGRES_HOST=postgres
+      - SENTRY_DB_USER=sentry
+      - SENTRY_DB_PASSWORD=sentry
+      - SENTRY_DB_NAME=sentry
+    command: run cron
+
+  worker:
+    image: sentry:9.1.1
+    restart: unless-stopped
+    env_file: env
+    environment:
+      - SENTRY_REDIS_HOST=redis
+      - SENTRY_POSTGRES_HOST=postgres
+      - SENTRY_DB_USER=sentry
+      - SENTRY_DB_PASSWORD=sentry
+      - SENTRY_DB_NAME=sentry
+    command: run worker
+
+  redis:
+    image: redis:4.0-alpine
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:10.4-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=sentry
+      - POSTGRES_USER=sentry
+    volumes:
+      - ./postgresql-data:/var/lib/postgresql/data
+
+networks:
+  default:
+    name: sentry

@@ -1,0 +1,4 @@
+system.url-prefix: http://0.0.0.0:8028
+system.admin-email: admin@example.com
+auth.allow-registration: false
+beacon.anonymous: true

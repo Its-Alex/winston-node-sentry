@@ -64,3 +64,4 @@ typings/
 **/dist
 
 **/package-lock.json
+sentry/postgresql-data

@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  wait_redis:
+    image: "waisbrot/wait"
+    environment:
+      TARGETS: redis:6379
+
+  wait_postgres:
+    image: "waisbrot/wait"
+    environment:
+      TARGETS: postgres:5432
+
+
+networks:
+  default:
+    name: sentry

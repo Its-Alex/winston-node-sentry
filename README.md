@@ -79,25 +79,49 @@ init `@node/sentry`
 First of all you must install package
 
 ```
-$ npm install
+$ yarn install
 ```
 
 You can build source to javascript
 
 ```
-$ npm run build
+$ yarn build
 ```
 
 or you can generate sourceMap with it
 
 ```
-$ npm run build:debug
+$ yarn build:debug
 ```
 
 When you're working on this module you can watch it
 
 ```
-$ npm run watch
+$ yarn watch
+```
+
+## Tests
+
+You can test if this modules works with sentry instance inside this repository
+
+Start sentry instance
+
+```
+$ ./sentry/scripts/up.sh
+```
+
+Get sentry DSN
+
+```
+$ ./sentry/extract_dsn.py
+```
+
+Copy DSN inside [test file](/__tests__/base.ts#L12)
+
+And execute tests
+
+```
+$ yarn test
 ```
 
 ## Workflow
