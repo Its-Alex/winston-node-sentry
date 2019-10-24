@@ -45,32 +45,31 @@ You can pass some options to SentryTransport
 }
 ```
 
-#### debug
+Per `options` variable above, here are the default options provided:
 
-Used to log each action of logger and error
+Transport related options:
 
-#### level
+- `name` (String) - transport's name (defaults to `winston-sentry-logger`)
+- `level` (String) - transport's level of messages to log (defaults to `error`)
+- `init` (Boolean) - true if transport must init sentry (defaults to `true`)
+- `debug` (Boolean) - used to log each action of logger and error (defaults
+  to `false`)
+- `sentryScope` (Function) - default custom scope function that can be set by
+  winston-node-sentry when it init `@node/sentry` (no default)
 
-Equivalent to winston level sentry will log error if level is same or below
+### Default Sentry Options (`options.sentryOps`)
 
-#### init
+- `logger` (String) - defaults to `winston-sentry-log`
+- `server_name` (String) - defaults to `process.env.SENTRY_NAME` or
+  `os.hostname()`
+- `release` (String) - defaults to `process.env.SENTRY_RELEASE`
+- `environment` (String) - defaults to `process.env.SENTRY_ENVIRONMENT`)
+- `modules` (Object) - defaults to `package.json` dependencies
+- `extra` (Object) - no default value
+- `fingerprint` (Array) - no default value
 
-This options is to set if winston-node-sentry must init `@node/sentry` module,
-or if user want to do it.
-
-#### sentry
-
-Is an `@node/sentry` object that can be used internally, if not passed
-winston-node-sentry will create his own
-
-#### sentryOpts
-
-Options passed to `@node/sentry` see [docs](https://docs.sentry.io/error-reporting/quickstart/?platform=node#configure-the-sdk) to get some more infos
-
-#### sentryScope
-
-Default custom scope function that can be set by winston-node-sentry when it
-init `@node/sentry`
+For a full list of Sentry options, please visit
+<https://docs.sentry.io/clients/node/config/>.
 
 ## Development
 

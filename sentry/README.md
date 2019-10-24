@@ -1,4 +1,4 @@
-# Local Sentry in Spacefill Development Kit
+# Local Sentry development kit
 
 ```
 $ ./scripts/up.sh

@@ -33,6 +33,7 @@ export class SentryTransport extends Transport.default {
       }
     })
 
+    this.name = opts.name ? opts.name : 'winston-sentry-logger'
     this.debug = opts.debug!
     this.level = opts.level!
     if (isFunction(opts.sentryScope)) Sentry.configureScope(opts.sentryScope)
