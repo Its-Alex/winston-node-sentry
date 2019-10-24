@@ -1,6 +1,7 @@
 import { isFunction, isError, defaultsDeep } from 'lodash'
 import * as Transport from 'winston-transport'
 import * as Sentry from '@sentry/node'
+import * as Integrations from '@sentry/integrations'
 
 interface WinstonSentryOptions {
   debug?: boolean
@@ -26,8 +27,7 @@ export class SentryTransport extends Transport.default {
         attachStacktrace: true,
         sendDefaultPii: true,
         integrations: [
-          new Sentry.Integrations.Modules(),
-          new Sentry.Integrations.Transaction()
+          new Integrations.Transaction()
         ]
       }
     })
@@ -66,7 +66,7 @@ export class SentryTransport extends Transport.default {
 
         return callback()
       }
-      
+
       self.Sentry.withScope((scope: Sentry.Scope) => {
         if (self.debug) console.log('Capture exception: ', error)
 
