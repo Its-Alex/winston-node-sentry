@@ -101,6 +101,14 @@ $ yarn watch
 
 ## Tests
 
+### Requirements
+
+- Docker
+- Python
+
+
+### Manual
+
 You can test if this modules works with sentry instance inside this repository
 
 Start sentry instance
