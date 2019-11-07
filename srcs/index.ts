@@ -1,5 +1,5 @@
 import { isFunction, isError, defaultsDeep } from 'lodash'
-import * as Transport from 'winston-transport'
+import * as TransportStream from 'winston-transport'
 import * as Sentry from '@sentry/node'
 import * as Integrations from '@sentry/integrations'
 
@@ -12,7 +12,7 @@ interface WinstonSentryOptions {
   sentryScope? (scope: Sentry.Scope): void
 }
 
-export class SentryTransport extends Transport.default {
+export class SentryTransport extends TransportStream {
   Sentry: any
   debug: boolean
   level: string
